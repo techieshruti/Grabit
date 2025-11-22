@@ -4,13 +4,19 @@ import { useEffect, useState } from "react";
 const Cuisine = () => {
   const [cuisines, setCuisines] = useState<any[]>([]);
   useEffect(() => {
-    fetch("https://www.swiggy.com/dapi/landing/PRE_SEARCH?lat=28.6139&lng=77.2090")
+    fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.66770&lng=77.43370&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
       .then((res) => res.json())
       .then((data) => {
-        const cuisineData =
-          data?.data?.cards[1]?.card?.card?.imageGridCards?.info;
-        setCuisines(cuisineData);
-      })
+        const restaurantCard = data?.data?.cards?.find(
+        (card: any) =>
+          card?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      );
+
+      const restaurantList =
+        restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
+      setCuisines(restaurantList);
+    })
       .catch((err) => console.error("Error:", err));
   }, []);
   
@@ -26,9 +32,10 @@ const Cuisine = () => {
             <div className="flex gap-8 py-4">
                 {cuisines.map((item) => (
                     <CuisineCard
-                    key={item.id}
-                    name={item.name}
-                    image={`https://media-assets.swiggy.com/swiggy/image/upload/${item.imageId}`}
+                    key={item.info.id}
+                    name={item.action?.name}
+                    cuisines={item.info.cuisine || []}
+                    imageId={item.info.cloudinaryImageId}
                     />
                 ))}
             </div>
