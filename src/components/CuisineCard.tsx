@@ -9,7 +9,7 @@ const CuisineCard = ({ name, image }: CuisineProps) => {
       <img
         src={image}
         alt={name}
-        className="w-30 h-30 rounded-full object-fit"
+        className="w-30 rounded-full object-fit"
       />
       <p className="mt-2 text-gray-600 text-lg font-medium">{name}</p>
     </div>
