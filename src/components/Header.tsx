@@ -3,7 +3,7 @@ import { ChevronDown, Search, BadgePercent, Headset,User,CookingPot } from "luci
 const Header = () => {
   return (
     <div className="text-lg font-medium">
-      <div className="bg-[#f7e1d0] w-full flex items-center justify-between py-3 px-20">
+      <div className="bg-[#f7e9df] w-full flex items-center justify-between py-3 px-20">
 
         {/* left */}
         <div className="flex justify-center items-center gap-10">
