@@ -1,9 +1,10 @@
-import Cusine from './components/Cusine'
-import Header from './components/header'
+import React from 'react'
+import Header from './components/Header'
+import Cuisine from './components/Cuisine'
 
 const App = () => {
   return (
-    <div><Header/><Cusine/></div>
+    <div><Header/><Cuisine/></div>
   )
 }
 
