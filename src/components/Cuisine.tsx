@@ -7,15 +7,18 @@ const Cuisine = () => {
     fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.66770&lng=77.43370&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
       .then((res) => res.json())
       .then((data) => {
-        const restaurantCard = data?.data?.cards?.find(
-        (card: any) =>
-          card?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        const cards = data?.data?.cards;
+
+      // STEP 2: Find the "What's on your mind?" card
+      const whatsOnYourMindCard = cards.find(
+        (item: any) => item?.card?.card?.id === "whats_on_your_mind"
       );
 
-      const restaurantList =
-        restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      // STEP 3: Extract only its cuisine items
+      const cuisines =
+        whatsOnYourMindCard?.card?.card?.imageGridCards?.info || [];
 
-      setCuisines(restaurantList);
+      setCuisines(cuisines);
     })
       .catch((err) => console.error("Error:", err));
   }, []);
@@ -32,10 +35,9 @@ const Cuisine = () => {
             <div className="flex gap-8 py-4">
                 {cuisines.map((item) => (
                     <CuisineCard
-                    key={item.info.id}
+                    key={item.id}
                     name={item.action?.name}
-                    cuisines={item.info.cuisine || []}
-                    imageId={item.info.cloudinaryImageId}
+                    imageId={item.ImageId}
                     />
                 ))}
             </div>
