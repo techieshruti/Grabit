@@ -16,9 +16,10 @@ const Cuisine = () => {
 
       // STEP 3: Extract only its cuisine items
       const cuisines =
-        whatsOnYourMindCard?.card?.card?.imageGridCards?.info || [];
+  whatsOnYourMindCard?.card?.card?.imageGridCards?.info
+    ?.filter((item: any) => item?.imageId && item?.action?.text) || [];
 
-      setCuisines(cuisines);
+setCuisines(cuisines);
     })
       .catch((err) => console.error("Error:", err));
   }, []);
@@ -28,16 +29,16 @@ const Cuisine = () => {
       <div className="w-3/4 px-4 py-4 border-b-2 border-b-gray-300">
 
       {/* Title */}
-        <h1 className="font-bold text-xl py-4">What's on your mind?</h1>
+        <h1 className="font-bold text-xl pt-4">What's on your mind?</h1>
 
 {/* Scrollable Section */}
         <div className="overflow-x-auto">
-            <div className="flex gap-8 py-4">
+            <div className="flex gap-8 py-8">
                 {cuisines.map((item) => (
                     <CuisineCard
                     key={item.id}
-                    name={item.action?.name}
-                    imageId={item.ImageId}
+                    name={item.action?.text}
+                    imageId={item.imageId}
                     />
                 ))}
             </div>
