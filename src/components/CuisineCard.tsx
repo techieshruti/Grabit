@@ -10,7 +10,7 @@ const CuisineCard = ({ name, imageId }: CuisineProps) => {
         <img
           src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_200,c_fill/${imageId}`}
           alt={name}
-          className="w-35 h-35 rounded-full object-cover"
+          className="w-35 h-35 object-cover"
         />
       )}
 
