@@ -1,12 +1,12 @@
 import Header from './components/Header'
 import Cuisine from './components/Cuisine'
-import RestaurantCard from './components/RestaurantCard'
+import RestaurantList from "./components/RestaurantList";
 
 const App = () => {
   return (
     <div><Header/>
     <Cuisine/>
-    <RestaurantCard/>
+    <RestaurantList/>
     </div>
   )
 }
