@@ -8,15 +8,19 @@ import {
   CookingPot,
 } from "lucide-react";
 
+type HeaderProps = {
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+};
+
 const navItems = [
-  { label: "Search", icon: Search },
   { label: "Offers", icon: BadgePercent },
   { label: "Help", icon: Headset },
   { label: "Sign In", icon: User },
   { label: "Cart", icon: CookingPot },
 ];
 
-const Header = () => {
+const Header = ({searchText, setSearchText }: HeaderProps) => {
   return (
     <div className="bg-[#f7e9df] text-lg font-medium">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-20">
@@ -31,6 +35,18 @@ const Header = () => {
             <span>Other</span>
             <ChevronDown size={18} />
           </div>
+        </div>
+
+        {/* Middle Search Bar */}
+        <div className="flex items-center gap-2 bg-white px-3 py-1 rounded-lg border">
+          <Search size={18} />
+          <input
+            type="text"
+            placeholder="Search restaurants..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="outline-none text-sm w-60"
+          />
         </div>
 
         {/* right section */}

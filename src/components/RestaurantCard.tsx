@@ -10,7 +10,7 @@ type RestaurantCardProps ={
 
 const RestaurantCard = ({image, title, rating, cuisine, area}: RestaurantCardProps) => {
   return (
-    <div className="w-55 h-[320px] rounded-2xl overflow-hidden shadow-md bg-white hover:scale-[0.97] transition-all duration-300">
+    <div className="w-58 h-[320px] rounded-2xl overflow-hidden shadow-md bg-[#fcf7f5] hover:scale-[0.97] transition-all duration-300">
 
       {/* Image Section */}
       <div className="w-full h-40">
