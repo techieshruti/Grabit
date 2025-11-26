@@ -26,14 +26,14 @@ setCuisines(cuisines);
   
   return (
     <div className="flex justify-center ">
-      <div className="w-3/4 px-4 py-4 border-b-2 border-b-gray-300">
+      <div className="w-3/4 px-4 py-2 border-b-2 border-b-gray-300">
 
       {/* Title */}
-        <h1 className="font-bold text-xl pt-4">What's on your mind?</h1>
+        <h1 className="font-bold text-xl pt-2">What's on your mind?</h1>
 
 {/* Scrollable Section */}
         <div className="overflow-x-auto">
-            <div className="flex gap-8 py-8">
+            <div className="flex gap-8 py-4">
                 {cuisines.map((item) => (
                     <CuisineCard
                     key={item.id}
