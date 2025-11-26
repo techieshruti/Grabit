@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
+import HelpBot from "./HelpBot";
 
 const IMG_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 
@@ -68,7 +69,10 @@ const RestaurantList = () => {
         </div>
 
       </div>
+          <HelpBot setSearchText={setSearchText} />
+
     </section>
+    
   );
 };
 

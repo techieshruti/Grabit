@@ -1,18 +1,27 @@
 import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
-const HelpBot = ({ setSearchText }) => {
+
+type HelpBotProp = {
+  setSearchText: Dispatch<SetStateAction<string>>;
+};
+
+const HelpBot = ({ setSearchText }: HelpBotProp) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<
+    { sender: "bot" | "user"; text: string }[]
+  >([
     { sender: "bot", text: "Hi! 👋 I'm your Food Assistant. How can I help you today?" }
   ]);
-  const [input, setInput] = useState("");
+
+  const [input, setInput] = useState<string>("");
 
   const handleSend = () => {
     if (!input.trim()) return;
 
     const userMessage = input;
 
-    setMessages([...messages, { sender: "user", text: userMessage }]);
+    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
 
     const botReply = getBotResponse(userMessage);
     setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
@@ -20,7 +29,7 @@ const HelpBot = ({ setSearchText }) => {
     setInput("");
   };
 
-  const getBotResponse = (msg) => {
+  const getBotResponse = (msg: string): string => {
     const message = msg.toLowerCase();
 
     if (message.includes("burger") || message.includes("domino") || message.includes("pizza")) {
@@ -33,7 +42,7 @@ const HelpBot = ({ setSearchText }) => {
     }
 
     if (message.includes("help")) {
-      return "You can ask me: \n1. Show me Burger King\n2. Track my order\n3. Cancel my order";
+      return `You can ask me:\n1. Show me Burger King\n2. Track my order\n3. Cancel my order`;
     }
 
     return "Sorry 😅 I didn’t understand. Try asking about restaurants or orders.";
