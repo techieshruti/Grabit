@@ -1,7 +1,6 @@
 import logo from "../assets/logo.png";
 import {
   ChevronDown,
-  Search,
   BadgePercent,
   Headset,
   User,
@@ -9,7 +8,6 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { label: "Search", icon: Search },
   { label: "Offers", icon: BadgePercent },
   { label: "Help", icon: Headset },
   { label: "Sign In", icon: User },
