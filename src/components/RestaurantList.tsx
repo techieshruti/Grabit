@@ -31,8 +31,9 @@ const RestaurantList = () => {
   const filteredRestaurants = restaurants.filter((res) =>
     res.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
+  
   console.log("Filtered Restaurants:", filteredRestaurants); 
-console.log("Search text:", searchText);
+  console.log("Search text:", searchText);
 
   return (
     <section className="flex justify-center">
@@ -47,7 +48,7 @@ console.log("Search text:", searchText);
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search restaurants..."
-            className="border px-4 py-2 rounded-md w-80 outline-none focus:ring-2 focus:ring-[#f27318]"
+            className="border px-4 py-2 rounded-md w-80 outline-none focus:ring-2 focus:border-0 focus:ring-[#f27318]"
           />
           
         </div>
