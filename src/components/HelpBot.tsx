@@ -1,12 +1,11 @@
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
-
-type HelpBotProp = {
+type HelpBotProps = {
   setSearchText: Dispatch<SetStateAction<string>>;
 };
 
-const HelpBot = ({ setSearchText }: HelpBotProp) => {
+const HelpBot = ({ setSearchText }: HelpBotProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<
     { sender: "bot" | "user"; text: string }[]
@@ -14,17 +13,22 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
     { sender: "bot", text: "Hi! 👋 I'm your Food Assistant. How can I help you today?" }
   ]);
 
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState("");
 
   const handleSend = () => {
     if (!input.trim()) return;
 
-    const userMessage = input;
+    setMessages((prev) => [
+      ...prev,
+      { sender: "user", text: input }
+    ]);
 
-    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
+    const botReply = getBotResponse(input);
 
-    const botReply = getBotResponse(userMessage);
-    setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
+    setMessages((prev) => [
+      ...prev,
+      { sender: "bot", text: botReply }
+    ]);
 
     setInput("");
   };
@@ -32,7 +36,11 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
   const getBotResponse = (msg: string): string => {
     const message = msg.toLowerCase();
 
-    if (message.includes("burger") || message.includes("domino") || message.includes("pizza")) {
+    if (
+      message.includes("burger") ||
+      message.includes("domino") ||
+      message.includes("pizza")
+    ) {
       setSearchText(msg);
       return `Searching for "${msg}" 🍴`;
     }
@@ -42,7 +50,10 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
     }
 
     if (message.includes("help")) {
-      return `You can ask me:\n1. Show me Burger King\n2. Track my order\n3. Cancel my order`;
+      return `You can ask me:
+1. Show me Burger King
+2. Track my order
+3. Cancel my order`;
     }
 
     return "Sorry 😅 I didn’t understand. Try asking about restaurants or orders.";
@@ -50,7 +61,7 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
 
   return (
     <>
-      {/* Floating Bubble */}
+      {/* Floating button */}
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 bg-[#f27318] p-4 rounded-full shadow-xl cursor-pointer text-white text-xl z-50"
@@ -58,17 +69,14 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
         💬
       </div>
 
-      {/* Chat Window */}
+      {/* Chat window */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 w-80 bg-white shadow-2xl rounded-xl p-4 z-50 border">
-
-          {/* Header */}
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="font-bold text-lg">AI Help</h2>
+          <div className="flex justify-between mb-2">
+            <h2 className="font-bold">AI Help</h2>
             <button onClick={() => setIsOpen(false)}>❌</button>
           </div>
 
-          {/* Messages */}
           <div className="h-60 overflow-y-auto flex flex-col gap-2 mb-3">
             {messages.map((msg, index) => (
               <div
@@ -76,7 +84,7 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
                 className={`p-2 rounded-lg max-w-[80%] ${
                   msg.sender === "user"
                     ? "bg-[#f27318] text-white self-end"
-                    : "bg-gray-200 text-black self-start"
+                    : "bg-gray-200 self-start"
                 }`}
               >
                 {msg.text}
@@ -84,18 +92,16 @@ const HelpBot = ({ setSearchText }: HelpBotProp) => {
             ))}
           </div>
 
-          {/* Input */}
           <div className="flex gap-2">
             <input
-              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a message..."
-              className="w-full border rounded-md px-3 py-1 outline-none focus:ring-1 focus:ring-[#f27318]"
+              className="w-full border px-2 py-1 rounded"
             />
             <button
               onClick={handleSend}
-              className="bg-[#f27318] text-white px-3 rounded-md"
+              className="bg-[#f27318] text-white px-3 rounded"
             >
               Send
             </button>

@@ -7,6 +7,10 @@ import {
   CookingPot,
 } from "lucide-react";
 
+type HeaderProps = {
+  setIsHelpOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 const navItems = [
   { label: "Offers", icon: BadgePercent },
   { label: "Help", icon: Headset },
@@ -14,7 +18,7 @@ const navItems = [
   { label: "Cart", icon: CookingPot },
 ];
 
-const Header = () => {
+const Header = ({ setIsHelpOpen }: HeaderProps) => {
   return (
     <div className="bg-[#f7e9df] text-lg font-medium">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-3 px-20">
@@ -38,6 +42,11 @@ const Header = () => {
             return (
               <li
                 key={index}
+                onClick={() => {
+                  if (item.label === "Help") {
+                    setIsHelpOpen(true);
+                  }
+                }}
                 className="flex items-center gap-2 cursor-pointer hover:text-[#f27318] transition-colors"
               >
                 <Icon size={20} />
