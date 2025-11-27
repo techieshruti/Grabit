@@ -2,11 +2,12 @@ import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 type HelpBotProps = {
+  isHelpOpen: boolean;
+  setIsHelpOpen: Dispatch<SetStateAction<boolean>>;
   setSearchText: Dispatch<SetStateAction<string>>;
 };
 
-const HelpBot = ({ setSearchText }: HelpBotProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const HelpBot = ({ isHelpOpen, setIsHelpOpen, setSearchText }: HelpBotProps) => {
   const [messages, setMessages] = useState<
     { sender: "bot" | "user"; text: string }[]
   >([
@@ -49,32 +50,25 @@ const HelpBot = ({ setSearchText }: HelpBotProps) => {
       return "Sure! Tell me the restaurant name you want to order from 🍔";
     }
 
-    if (message.includes("help")) {
-      return `You can ask me:
-1. Show me Burger King
-2. Track my order
-3. Cancel my order`;
-    }
-
-    return "Sorry 😅 I didn’t understand. Try asking about restaurants or orders.";
+    return "Sorry 😅 I didn’t understand. Try asking about restaurants.";
   };
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating Button */}
       <div
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsHelpOpen(true)}
         className="fixed bottom-6 right-6 bg-[#f27318] p-4 rounded-full shadow-xl cursor-pointer text-white text-xl z-50"
       >
         💬
       </div>
 
-      {/* Chat window */}
-      {isOpen && (
+      {/* Chat Window */}
+      {isHelpOpen && (
         <div className="fixed bottom-24 right-6 w-80 bg-white shadow-2xl rounded-xl p-4 z-50 border">
           <div className="flex justify-between mb-2">
             <h2 className="font-bold">AI Help</h2>
-            <button onClick={() => setIsOpen(false)}>❌</button>
+            <button onClick={() => setIsHelpOpen(false)}>❌</button>
           </div>
 
           <div className="h-60 overflow-y-auto flex flex-col gap-2 mb-3">
@@ -96,7 +90,7 @@ const HelpBot = ({ setSearchText }: HelpBotProps) => {
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
+              placeholder="Type message..."
               className="w-full border px-2 py-1 rounded"
             />
             <button

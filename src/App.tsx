@@ -1,16 +1,28 @@
-import Header from './components/Header'
-import Cuisine from './components/Cuisine'
+import { useState } from "react";
+import Header from "./components/Header";
+import Cuisine from "./components/Cuisine";
 import RestaurantList from "./components/RestaurantList";
+import HelpBot from "./components/HelpBot";
 
 const App = () => {
-  
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
   return (
     <div>
-      <Header/>
-      <Cuisine/>
-      <RestaurantList/>
-    </div>
-  )
-}
+      <Header setIsHelpOpen={setIsHelpOpen} />
 
-export default App
+      <Cuisine />
+
+      <RestaurantList setSearchText={setSearchText} />
+
+      <HelpBot
+        isHelpOpen={isHelpOpen}
+        setIsHelpOpen={setIsHelpOpen}
+        setSearchText={setSearchText}
+      />
+    </div>
+  );
+};
+
+export default App;

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import RestaurantCard from "./RestaurantCard";
-import HelpBot from "./HelpBot";
 
 const IMG_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 
-const RestaurantList = () => {
+type RestaurantListProps = {
+  searchText: string;
+  setSearchText: Dispatch<SetStateAction<string>>;
+};
+
+const RestaurantList = ({ searchText, setSearchText }: RestaurantListProps) => {
 
   const [restaurants, setRestaurants] = useState<any[]>([]);
-  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.66770&lng=77.43370&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
@@ -21,7 +25,8 @@ const RestaurantList = () => {
             ?.map((card: any) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants)
             .flat()
             .filter(Boolean) || [];
-            console.log("All Restaurants:", restaurantData);
+
+        console.log("All Restaurants:", restaurantData);
 
         setRestaurants(restaurantData);
       })
@@ -32,8 +37,8 @@ const RestaurantList = () => {
   const filteredRestaurants = restaurants.filter((res) =>
     res.info.name.toLowerCase().includes(searchText.toLowerCase())
   );
-  
-  console.log("Filtered Restaurants:", filteredRestaurants); 
+
+  console.log("Filtered Restaurants:", filteredRestaurants);
   console.log("Search text:", searchText);
 
   return (
@@ -51,7 +56,6 @@ const RestaurantList = () => {
             placeholder="Search restaurants..."
             className="border px-4 py-2 rounded-md w-80 outline-none focus:ring-2 focus:border-0 focus:ring-[#f27318]"
           />
-          
         </div>
 
         {/* ✅ Cards */}
@@ -69,10 +73,7 @@ const RestaurantList = () => {
         </div>
 
       </div>
-          <HelpBot setSearchText={setSearchText} />
-
     </section>
-    
   );
 };
 
