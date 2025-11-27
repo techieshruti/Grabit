@@ -14,7 +14,10 @@ const App = () => {
 
       <Cuisine />
 
-      <RestaurantList setSearchText={setSearchText} />
+      <RestaurantList 
+        searchText={searchText} 
+        setSearchText={setSearchText} 
+      />
 
       <HelpBot
         isHelpOpen={isHelpOpen}
