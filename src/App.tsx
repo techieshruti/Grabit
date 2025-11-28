@@ -5,7 +5,6 @@ import RestaurantList from "./components/RestaurantList";
 import HelpBot from "./components/HelpBot";
 
 const App = () => {
-  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
 
   return (
