@@ -54,7 +54,7 @@ const RestaurantList = ({ searchText, setSearchText }: RestaurantListProps) => {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search restaurants..."
-            className="border px-4 py-2 rounded-md w-80 outline-none focus:ring-2 focus:border-0 focus:ring-[#f27318]"
+            className=" px-4 py-2 rounded-md w-80 outline-none focus:ring-2 focus:border-0 focus:ring-[#f27318]"
           />
         </div>
 
